@@ -18,7 +18,10 @@ def sedadla():
         form.vars.pop('id')
         form.vars.cisla = form.vars.cisla.split() if form.vars.cisla else None
         form.vars.nabizeno = form.vars.nabizeno if form.vars.nabizeno else (True if form.vars.cisluj else False)
-        return sedadla_func(**form.vars)
+        insert_problem = sedadla_func(**form.vars)
+        if insert_problem:
+            return insert_problem
+        redirect(URL('sedadla', 'situace', args=form.vars.typ_vozidla_id))
     return dict(form=form)
 
 def sedadla_func(typ_vozidla_id, leve, prave, predni, krok=77, zadni=None, rad=1,
@@ -80,4 +83,4 @@ def sedadla_func(typ_vozidla_id, leve, prave, predni, krok=77, zadni=None, rad=1
                     )
             kolikate += 1
 
-    return "Ok"
+    return None     # Ok
