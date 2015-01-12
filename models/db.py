@@ -7,7 +7,11 @@
 
 ## if SSL/HTTPS is properly configured and you want all HTTP requests to
 ## be redirected to HTTPS, uncomment the line below:
-# request.requires_https()
+if request.is_local:
+    from gluon.custom_import import track_changes
+    track_changes(True)    # auto-reload modules
+else:
+    request.requires_https()
 
 if not request.env.web2py_runtime_gae:
     ## if NOT running on Google App Engine use SQLite or other DB
@@ -82,6 +86,8 @@ use_janrain(auth, filename='private/janrain.key')
 ## >>> rows=db(db.mytable.myfield=='value').select(db.mytable.ALL)
 ## >>> for row in rows: print row.id, row.myfield
 #########################################################################
+import db_hemtrans
+db_hemtrans.get_db(db, auth)
 
 ## after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
