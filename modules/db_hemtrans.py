@@ -7,7 +7,7 @@ def get_db(db, auth):
         Field('typ', 'string', length=64),
         Field('mist', 'integer'),
         Field('delka', 'integer'),
-        Field('sirka', 'integer'),
+        format='%(typ)s'
         )
 
     db.define_table('sedadlo',
@@ -16,4 +16,5 @@ def get_db(db, auth):
         Field('nabizeno', 'boolean'),
         Field('odpredu', 'integer'),
         Field('od_osy', 'integer'),
+        format='%(cislo)s'
         )
